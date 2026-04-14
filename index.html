@@ -23,17 +23,536 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 
-<!DOCTYPE HTML>
-<html>
-    <head>
-        <title>bonjour</title>
-    </head>
-    <body>
-        <img style="position: fixed; top: 0px; left: 0px; width: 100%; aspect-ratio: 1/1;" alt="beast" />
-        <div style="position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; background-color: white; opacity: 0.9;">
-            <a href="https://www.youtube.com/watch?v=-w2m-TeLi6I">vegetarian metal</a>
-            <br>
-            <a href="https://www.youtube.com/watch?v=KljxIoJJwbY">depressive metal</a>
-        </div>
-    </body>
+<!DOCTYPE html>
+<html lang="en" dataTheme="darkTheme">
+<head>
+<meta charset="UTF-8">
+<meta name="robots" content="index, follow">
+<meta name="author" content="Stefanos &quot;Steven&quot; Tsakiris">
+<meta name="description" content="That's a nice content description you got there.">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#FF0000">
+<title>Steven's Website @ senatorsteven.github.io</title>
+<style>
+	:root{
+
+
+
+		--leftContentSidebarWidth: 288px;
+		--leftContentSidebarHeight: 700px;
+		--rightContentPaddingTop: 25px;
+		--rightContentPaddingBottom: 25px;
+		--rightContentPaddingLeft: 25px;
+		--rightContentPaddingRight: 25px;
+
+
+
+		--contentOffsetX: 10px;
+		--headerHeight: 10px;
+		--preTitleHeight: 0px;
+		--postTitleHeight: 0px;
+		--preParagraphHeight: 24px;
+		--preTextHeight: 16px;
+		--postTextHeight: 0px;
+		--preCodeHeight: 0px;
+		--postCodeHeight: 0px;
+		--chinHeight: 1px;
+		--footerHeight: 10px;
+		--holeMarginX: 1px;
+		--holeMarginY: 1px;
+		--codePaddingX: 8px;
+		--codePaddingY: 8px;
+		--textFont: "Inter", Arial, sans-serif;
+		--codeFont: "Source Code Pro", monospace;
+		--fontSize: 16px;
+		--titleFontSize: 24px;
+		--textFontSize: 16px;
+		--codeFontSize: 16px;
+		--contentCornerRadius: 12px;
+		--holeCornerRadius: 12px;
+	}
+	[dataTheme = "neutralLightTheme"]{
+		/* transition intermediate color scheme */
+		--background: #F7F9F9;
+		--svgBackground: var(--background);
+		--buttonBackground: var(--background);
+		--color: var(--background);
+		--buttonColor: var(--background);
+		--holeChinColor: var(--background);
+		--holeBorderColor: var(--background);
+	}
+	[dataTheme = "neutralDarkTheme"]{
+		/* transition intermediate color scheme */
+		--background: #121212;
+		--svgBackground: var(--background);
+		--buttonBackground: var(--background);
+		--color: var(--background);
+		--buttonColor: var(--background);
+		--holeChinColor: var(--background);
+		--holeBorderColor: var(--background);
+	}
+	[dataTheme = "lightTheme"]{
+		/* premium light color scheme */
+		--background: #FFFFFF;
+		--svgBackground: #F2F2F7;
+		--buttonBackground: var(--svgBackground);
+		--color: #000000;
+		--buttonColor: var(--color);
+		--holeChinColor: #8A8A8A;
+		--holeBorderColor: #C5C5C5;
+	}
+	[dataTheme = "darkTheme"]{
+		/* sliding metal dark color scheme */
+		--background: #121212;
+		--svgBackground: #1A1A1A;
+		--buttonBackground: var(--svgBackground);
+		--color: #FFFFFF;
+		--buttonColor: var(--color);
+		--holeChinColor: #313131;
+		--holeBorderColor: #0E0E0E;
+	}
+	*{
+		box-sizing: border-box;
+		top: 0px;
+		left: 0px;
+		border: 0px;
+		margin: 0px;
+		padding: 0px;
+	}
+	html{
+		background: var(--background);
+		color: var(--color);
+		font-size: var(--fontSize);
+		font-family: var(--textFont);
+		font-variant-ligatures: none;
+		overflow-x: hidden;
+		scroll-behavior: smooth;
+	}
+	body{
+		width: 100%;
+		height: 100%;
+	}
+	code{
+		font-family: var(--codeFont);
+	}
+	.animated{
+		transition: background 1s ease, fill 1s ease, color 1s ease;
+	}
+	.noSelect, .noSelect *{
+		user-select: none;
+		-webkit-user-select: none;
+		-ms-user-select: none;
+	}
+	#visualLayerButtonLayer{
+		position: absolute;
+		z-index: 0;
+	}
+	#logicalLayerButtonLayer{
+		position: absolute;
+		z-index: 2;
+	}
+	#visualThemeButtonLayer{
+		position: absolute;
+		z-index: 0;
+	}
+	#logicalThemeButtonLayer{
+		position: absolute;
+		z-index: 2;
+	}
+	.textLayer{
+		position: relative;
+		padding-right: var(--rightContentPaddingRight);
+		background: var(--svgBackground);
+		z-index: 1;
+	}
+	.codeLayer{
+		position: relative;
+		z-index: 0;
+	}
+	.preTitle{
+		height: var(--preTitleHeight);
+	}
+	.title{
+		font-size: var(--titleFontSize);
+	}
+	.postTitle{
+		height: var(--postTitleHeight);
+	}
+	.preParagraph{
+		height: var(--preParagraphHeight);
+	}
+	.preText{
+		height: var(--preTextHeight);
+	}
+	.text{
+		font-size: var(--textFontSize);
+	}
+	.postText{
+		height: var(--postTextHeight);
+	}
+	.preCode{
+		height: var(--preCodeHeight);
+	}
+	.code{
+		font-size: var(--codeFontSize);
+	}
+	.postCode{
+		height: var(--postCodeHeight);
+	}
+	.svg{
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		z-index: 1;
+		pointer-events: none;
+	}
+	.whiteMask{
+		width: 100%;
+		height: 100%;
+		fill: white;
+	}
+	.hole{
+		rx: var(--holeCornerRadius);
+		ry: var(--holeCornerRadius);
+		fill: black;
+	}
+	.holeChin{
+		rx: var(--holeCornerRadius);
+		ry: var(--holeCornerRadius);
+		fill: var(--holeChinColor);
+	}
+	.holeBorder{
+		rx: var(--holeCornerRadius);
+		ry: var(--holeCornerRadius);
+		fill: var(--holeBorderColor);
+	}
+	.holeStrecher{
+		width: calc(100% - 2 * var(--holeMarginX) - var(--rightContentPaddingRight));
+		height: calc(100% - 2 * var(--holeMarginY) - var(--chinHeight));
+	}
+	.holeChinStrecher{
+		width: calc(100% - var(--rightContentPaddingRight));
+		height: 100%;
+	}
+	.holeBorderStrecher{
+		width: calc(100% - var(--rightContentPaddingRight));
+		height: calc(100% - var(--chinHeight));
+	}
+	.svgRectangleBackground{
+		width: 100%;
+		height: 100%;
+		fill: var(--svgBackground);
+	}
+	.codeOffset{
+		position: relative;
+		padding-top: var(--codePaddingY);
+		padding-bottom: var(--codePaddingY);
+		padding-left: var(--codePaddingX);
+		padding-right: var(--codePaddingX);
+	}
+</style>
+<script>
+	const slideDuration = 1000;
+	const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+	let savedTheme = localStorage.getItem("theme");
+
+	function setTheme(theme){
+		const previousTheme = document.documentElement.getAttribute("dataTheme");
+		let currentTheme;
+		if(theme){
+			currentTheme = theme;
+		}else{
+			currentTheme = "darkTheme";
+			if(previousTheme === "darkTheme"){
+				currentTheme = "lightTheme";
+			}
+		}
+		if(currentTheme !== previousTheme){
+			localStorage.setItem("theme", currentTheme);
+			document.documentElement.setAttribute("dataTheme", currentTheme);
+		}
+		return;
+	}
+	if(savedTheme !== "lightTheme" && savedTheme !== "darkTheme"){
+		savedTheme = "lightTheme";
+		if(prefersDark){
+			savedTheme = "darkTheme";
+		}
+	}
+	setTheme(savedTheme);
+</script>
+</head>
+<body class="animated">
+<div style="height: var(--headerHeight)"></div>
+<div style="display: flex; width: 100%">
+	<div style="flex: 0 0 var(--contentOffsetX)"></div>
+	<div style="flex: 0 0 calc(var(--leftContentSidebarWidth) + var(--rightContentPaddingLeft))">
+		<svg style="display: block; width: 100%; height: 100%" preserveAspectRatio="none">
+			<mask id="sidebarMask">
+				<rect width="var(--leftContentSidebarWidth)" height="var(--leftContentSidebarHeight)" fill="white"/>
+				<rect x="var(--leftContentSidebarWidth)" width="calc(var(--rightContentPaddingLeft) + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+				<rect y="var(--leftContentSidebarHeight)" width="calc(100% + var(--contentCornerRadius))" height="calc(100% - var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+				<rect x="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" y="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" width="calc(var(--contentCornerRadius) + var(--leftContentSidebarWidth))" height="calc(var(--contentCornerRadius) + var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="black"/>
+			</mask>
+			<g mask="url(#sidebarMask)">
+				<rect width="calc(100% + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="var(--svgBackground)"/>
+			</g>
+		</svg>
+	</div>
+	<div style="width: 100%"><div style="height: var(--rightContentPaddingTop); background: var(--svgBackground)"></div>
+		<div class="textLayer animated preTitle"></div>
+		<div class="textLayer animated title">Useful links</div>
+		<div class="textLayer animated postTitle"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preParagraph"></div>
+		<div class="textLayer animated preTitle"></div>
+		<div class="textLayer animated title">Projects</div>
+		<div class="textLayer animated postTitle"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">cold</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask0"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask0)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/cold</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">compile</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask1"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask1)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/compile</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microtk</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask2"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask2)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtk</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microbar</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask3"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask3)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbar</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microbrightness</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask4"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask4)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbrightness</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microcompositor</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask5"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask5)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microcompositor</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microconfiner</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask6"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask6)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microconfiner</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microdesktop</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask7"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask7)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microdesktop</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microgesture</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask8"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask8)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microgesture</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microlauncher</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask9"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask9)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microlauncher</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">micropanel</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask10"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask10)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/micropanel</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microrun</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask11"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask11)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microrun</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microscreensaver</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask12"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask12)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microscreensaver</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microsound</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask13"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask13)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microsound</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microswitcher</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask14"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask14)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microswitcher</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microtabber</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask15"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask15)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtabber</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microtransmitter</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask16"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask16)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtransmitter</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div class="textLayer animated preText"></div>
+		<div class="textLayer animated text">microwm</div>
+		<div class="textLayer animated postText"></div>
+		<div class="textLayer animated preCode"></div>
+		<div class="codeLayer animated code">
+			<svg class="svg" preserveAspectRatio="none"><mask id="mask17"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask17)"><rect class="svgRectangleBackground animated"/><rect class="holeChin holeChinStrecher animated"/><rect class="holeBorder holeBorderStrecher animated"/></g></svg>
+			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microwm</code></pre>
+		</div>
+		<div class="textLayer animated postCode"></div>
+		<div style="height: var(--rightContentPaddingBottom); background: var(--svgBackground)"></div></div>
+</div>
+<div style="height: var(--footerHeight)"></div>
+<script>
+	let direction = -1;
+	let animationId = null;
+	let progress = 0;
+	let lastTime;
+	let changingTheme = false;
+
+	function applyChanges(){
+		const x = progress * 875;
+		/*! document.getElementById("svgLayer").style.transform = `translateX(${x}px)`; */
+		/*! document.querySelectorAll(".textLayer").forEach((e) => {
+			e.style.transform = `translateX(${x}px)`;
+		}); */
+		document.querySelectorAll(".textLayer").forEach((e) => {
+			e.style.transform = `translateX(${x}px)`;
+		});
+		return;
+	}
+	function update(now){
+		progress += (now - lastTime) / slideDuration * direction;
+		if((progress <= 0 && direction === -1) || (progress >= 1 && direction === 1)){
+			progress = Math.max(0, Math.min(1, progress));
+			applyChanges();
+			animationId = null;
+			return;
+		}
+		applyChanges();
+		lastTime = now;
+		requestAnimationFrame(update);
+		return;
+	}
+	function setThemeWithStage(theme){
+		const toNeutralDuration = 1000;
+		const toNewThemeDuration = 1000;
+		const previousTheme = document.documentElement.getAttribute("dataTheme");
+		let currentTheme;
+		if(theme){
+			currentTheme = theme;
+		}else{
+			currentTheme = "darkTheme";
+			if(previousTheme === "darkTheme"){
+				currentTheme = "lightTheme";
+			}
+		}
+		if(currentTheme !== previousTheme){
+			localStorage.setItem("theme", currentTheme);
+			if(currentTheme === "darkTheme"){
+				document.documentElement.setAttribute("dataTheme", "neutralLightTheme");
+			}else{
+				document.documentElement.setAttribute("dataTheme", "neutralDarkTheme");
+			}
+			setTimeout(() => {
+				document.documentElement.setAttribute("dataTheme", currentTheme);
+				setTimeout(() => {
+					changingTheme = false;
+				}, toNewThemeDuration);
+			}, toNeutralDuration);
+		}
+		return;
+	}
+	document.getElementById("layerButton").addEventListener("click", () => {
+		document.querySelectorAll(".textLayer").forEach((e) => {
+			e.classList.toggle("noSelect");
+		});
+		direction *= -1;
+		if(!animationId){
+			lastTime = performance.now();
+			animationId = requestAnimationFrame(update);
+		}
+		return;
+	});
+	document.getElementById("themeButton").addEventListener("click", () => {
+		if(!changingTheme){
+			changingTheme = true;
+			setThemeWithStage(null);
+		}
+		return;
+	});
+</script>
+</body>
 </html>
