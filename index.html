@@ -66,7 +66,7 @@ SOFTWARE. -->
 
 
 		/*! --leftContentSidebarWidth: 288px; */
-		--leftContentSidebarWidth: 0px;
+		--leftContentSidebarWidth: 288px;
 		--leftContentSidebarHeight: 700px;
 		--rightContentPaddingTop: 25px;
 		--rightContentPaddingBottom: 25px;
@@ -173,6 +173,10 @@ SOFTWARE. -->
 	}
 	pre{
 		overflow-y: hidden;
+		scrollbar-width: none;
+	}
+	pre::-webkit-scrollbar{
+		display: none;
 	}
 	code{
 		font-family: var(--codeFont);
@@ -338,6 +342,32 @@ SOFTWARE. -->
 
 
 
+	#topbar{
+		display: none;
+	}
+	pre.fit{
+		width: -moz-fit-content;
+		width: fit-content;
+		max-width: calc(100% + var(--rightContentPaddingRight));
+	}
+	@media(max-width: 768px){
+		#sidebar{
+			--leftContentSidebarWidth: 0px;
+			/*! flex-direction: column; */
+		}
+		#topbar{
+			display: block;
+		}
+	}
+
+
+
+
+
+
+
+
+
 
 
 
@@ -392,7 +422,25 @@ SOFTWARE. -->
 </head>
 <body class="themeAnimated">
 <div style="height: var(--headerHeight)"></div>
+
+
+
+<div style="position: relative; left: var(--contentOffsetX); width: calc(100% - var(--contentOffsetX)); height: 100px; margin-bottom: 10px" id="topbar">
+	<svg style="width: 100%; height: 100%" preserveAspectRatio="none">
+		<mask id="topbarMask">
+			<rect width="calc(2 * var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+			<rect x="var(--contentCornerRadius)" width="100%" height="100%" fill="white"/>
+		</mask>
+		<g mask="url(#topbarMask)">
+			<rect width="100%" height="100%" fill="var(--svgBackground)"/>
+		</g>
+	</svg>
+</div>
+
+
+
 <div style="display: flex">
+	<div style="flex: 0 0 var(--contentOffsetX)"></div>
 
 
 
@@ -415,116 +463,117 @@ SOFTWARE. -->
 
 
 
-	<div style="flex: 0 0 var(--contentOffsetX)"></div>
-	<div class="shellAnimated" style="flex: 0 0 calc(var(--leftContentSidebarWidth) + var(--rightContentPaddingLeft)); z-index: 98">
-		<svg style="display: block; width: 100%; height: 100%" preserveAspectRatio="none">
-			<mask id="sidebarMask">
-				<rect width="var(--leftContentSidebarWidth)" height="var(--leftContentSidebarHeight)" fill="white"/>
-				<rect x="var(--leftContentSidebarWidth)" width="calc(var(--rightContentPaddingLeft) + var(--contentCornerRadius))" height="calc(var(--leftContentSidebarHeight) + var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-				<rect y="var(--leftContentSidebarHeight)" width="calc(100% + var(--contentCornerRadius))" height="calc(100% - var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-				<rect x="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" y="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" width="calc(var(--contentCornerRadius) + var(--leftContentSidebarWidth))" height="calc(var(--contentCornerRadius) + var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="black"/>
-			</mask>
-			<g mask="url(#sidebarMask)">
-				<rect class="themeAnimated" width="calc(100% + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="var(--svgBackground)"/>
-			</g>
-		</svg>
+	<div style="flex: 1 1 auto; min-width: 0; display: flex" id="sidebar">
+		<div style="flex: 0 0 calc(var(--leftContentSidebarWidth) + var(--rightContentPaddingLeft)); z-index: 98" class="shellAnimated" id="sidebar">
+			<svg style="display: block; width: 100%; height: 100%" preserveAspectRatio="none">
+				<mask id="sidebarMask">
+					<rect width="var(--leftContentSidebarWidth)" height="var(--leftContentSidebarHeight)" fill="white"/>
+					<rect x="var(--leftContentSidebarWidth)" width="calc(var(--rightContentPaddingLeft) + var(--contentCornerRadius))" height="calc(var(--leftContentSidebarHeight) + var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+					<rect y="var(--leftContentSidebarHeight)" width="calc(100% + var(--contentCornerRadius))" height="calc(100% - var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+					<rect x="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" y="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" width="calc(var(--contentCornerRadius) + var(--leftContentSidebarWidth))" height="calc(var(--contentCornerRadius) + var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="black"/>
+				</mask>
+				<g mask="url(#sidebarMask)">
+					<rect class="themeAnimated" width="calc(100% + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="var(--svgBackground)"/>
+				</g>
+			</svg>
+		</div>
+		<div style="flex: 1 1 auto; min-width: 0"><div class="shellAnimated themeAnimated" style="height: var(--rightContentPaddingTop); background: var(--svgBackground)"></div>
+			<div class="textLayer shellAnimated themeAnimated title">Useful links</div>
+			<div class="textLayer shellAnimated themeAnimated text">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
+			<div class="textLayer shellAnimated themeAnimated preParagraph"></div>
+			<div class="textLayer shellAnimated themeAnimated title">Projects</div>
+			<div class="textLayer shellAnimated themeAnimated text">cold</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask00"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask00)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/cold</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">compile</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask01"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask01)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/compile</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microtk</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask02"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask02)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtk</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microbar</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask03"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask03)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbar</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microbrightness</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask04"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask04)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbrightness</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microcompositor</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask05"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask05)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microcompositor</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microconfiner</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask06"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask06)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microconfiner</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microdesktop</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask07"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask07)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microdesktop</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microgesture</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask08"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask08)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microgesture</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microlauncher</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask09"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask09)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microlauncher</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">micropanel</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask10"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask10)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/micropanel</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microrun</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask11"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask11)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microrun</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microscreensaver</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask12"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask12)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microscreensaver</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microsound</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask13"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask13)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microsound</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microswitcher</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask14"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask14)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microswitcher</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microtabber</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask15"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask15)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtabber</code></pre>
+			</div>
+			<div class="textLayer shellAnimated themeAnimated text">microtransmitter</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask16"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask16)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtransmitter</code></pre>
+			</div>
+			<div class="textLayer shellAnimated shellAnimated themeAnimated text">microwm</div>
+			<div class="codeLayer themeAnimated code">
+				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask17"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask17)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
+				<pre class="codeOffset"><code>https://github.com/SenatorSteven/microwm</code></pre>
+			</div>
+		<div class="shellAnimated themeAnimated" style="height: var(--rightContentPaddingBottom); background: var(--svgBackground); z-index: 98"></div></div>
 	</div>
-	<div style="flex: 1 1 auto; min-width: 0"><div class="shellAnimated themeAnimated" style="height: var(--rightContentPaddingTop); background: var(--svgBackground)"></div>
-		<div class="textLayer shellAnimated themeAnimated title">Useful links</div>
-		<div class="textLayer shellAnimated themeAnimated text">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
-		<div class="textLayer shellAnimated themeAnimated preParagraph"></div>
-		<div class="textLayer shellAnimated themeAnimated title">Projects</div>
-		<div class="textLayer shellAnimated themeAnimated text">cold</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask00"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask00)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/cold</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">compile</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask01"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask01)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/compile</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microtk</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask02"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask02)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtk</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microbar</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask03"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask03)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbar</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microbrightness</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask04"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask04)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microbrightness</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microcompositor</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask05"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask05)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microcompositor</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microconfiner</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask06"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask06)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microconfiner</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microdesktop</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask07"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask07)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microdesktop</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microgesture</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask08"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask08)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microgesture</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microlauncher</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask09"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask09)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microlauncher</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">micropanel</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask10"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask10)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/micropanel</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microrun</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask11"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask11)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microrun</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microscreensaver</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask12"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask12)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microscreensaver</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microsound</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask13"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask13)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microsound</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microswitcher</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask14"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask14)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microswitcher</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microtabber</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask15"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask15)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtabber</code></pre>
-		</div>
-		<div class="textLayer shellAnimated themeAnimated text">microtransmitter</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask16"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask16)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microtransmitter</code></pre>
-		</div>
-		<div class="textLayer shellAnimated shellAnimated themeAnimated text">microwm</div>
-		<div class="codeLayer themeAnimated code">
-			<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask17"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask17)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-			<pre class="codeOffset"><code>https://github.com/SenatorSteven/microwm</code></pre>
-		</div>
-	<div class="shellAnimated themeAnimated" style="height: var(--rightContentPaddingBottom); background: var(--svgBackground); z-index: 98"></div></div>
 	<div class="shellAnimated themeAnimated" style="flex: 0 0 var(--rightContentPaddingRight); background: var(--svgBackground)"></div>
 </div>
 <div style="height: var(--footerHeight)"></div>
@@ -548,6 +597,11 @@ SOFTWARE. -->
 			progress = Math.max(0, Math.min(1, progress));
 			applyChanges();
 			animationId = null;
+			if(direction === -1){
+				document.querySelectorAll("pre").forEach((e) => {
+					e.classList.toggle("fit");
+				});
+			}
 			return;
 		}
 		applyChanges();
@@ -593,7 +647,18 @@ SOFTWARE. -->
 			e.classList.toggle("noSelect");
 		});
 		direction *= -1;
+
+
+
+
+
+
 		if(!animationId){
+			if(direction === 1){
+				document.querySelectorAll("pre").forEach((e) => {
+					e.classList.toggle("fit");
+				});
+			}
 			lastTime = performance.now();
 			animationId = requestAnimationFrame(update);
 		}
@@ -609,924 +674,3 @@ SOFTWARE. -->
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<!--
-<!DOCTYPE html>
-<html lang="en" dataTheme="darkTheme">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Programming Tips and Tricks</title>
-<style>
-	:root{
-		--contentOffsetX: 10px;
-		--contentOffsetY: 10px;
-		--leftContentOffsetX: 0px;
-		--leftContentOffsetY: 700px;
-		--rightContentOffsetX: 288px;
-		--rightContentOffsetY: 0px;
-		--rightContentPaddingOffsetX: 25px;
-		--rightContentPaddingOffsetY: 25px;
-		--holeMarginX: 1px;
-		--holeMarginY: 1px;
-		--codeIndentX: 12px;
-		--codeIndentY: 0px;
-		--buttonHoleOffsetX: 12px;
-		--buttonHoleOffsetY: 12px;
-		--buttonOffsetX: 3px;
-		--buttonOffsetY: 3px;
-		--pageHeight: 3000px;
-		--preTitleHeight: 0px;
-		--titleHeight: 24px;
-		--postTitleHeight: 8px;
-		--preParagraphHeight: 32px;
-		--preTextHeight: 8px;
-		--textHeight: 24px;
-		--postTextHeight: 8px;
-		--preCodeHeight: 2px;
-		--codeHeight: 24px;
-		--postCodeHeight: 16px;
-		--textFont: "Inter", Arial, sans-serif;
-		--codeFont: "Source Code Pro", monospace;
-		--fontSize: 16px;
-		--titleFontSize: 24px;
-		--textFontSize: 16px;
-		--codeFontSize: 16px;
-		--holeCornerRadius: 12px;
-	}
-	[dataTheme="neutralLightTheme"]{
-		/* transition intermediate color scheme */
-		--background: #F7F9F9;
-		--svgBackground: var(--background);
-		--buttonBackground: var(--background);
-		--color: var(--background);
-		--buttonColor: var(--background);
-		--holeChinColor: var(--background);
-		--holeBorderColor: var(--background);
-	}
-	[dataTheme="neutralDarkTheme"]{
-		/* transition intermediate color scheme */
-		--background: #121212;
-		--svgBackground: var(--background);
-		--buttonBackground: var(--background);
-		--color: var(--background);
-		--buttonColor: var(--background);
-		--holeChinColor: var(--background);
-		--holeBorderColor: var(--background);
-	}
-	[dataTheme="lightTheme"]{
-		/* premium light color scheme */
-		--background: #FFFFFF;
-		--svgBackground: #F2F2F7;
-		--buttonBackground: var(--svgBackground);
-		--color: #000000;
-		--buttonColor: var(--color);
-		--holeChinColor: #8A8A8A;
-		--holeBorderColor: #C5C5C5;
-	}
-	[dataTheme="darkTheme"]{
-		/* sliding metal dark color scheme */
-		--background: #121212;
-		--svgBackground: #1A1A1A;
-		--buttonBackground: var(--svgBackground);
-		--color: #FFFFFF;
-		--buttonColor: var(--color);
-		--holeChinColor: #313131;
-		--holeBorderColor: #0E0E0E;
-	}
-	*{
-		box-sizing: border-box;
-		top: 0px;
-		left: 0px;
-		border: 0px;
-		padding: 0px;
-		margin: 0px;
-	}
-	.themeAnimatedText{
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	.visualButton{
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	.animatableFill{
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	html, body{
-		height: var(--pageHeight);
-		line-height: 24px;
-		background: var(--background);
-		color: var(--color);
-		font-size: var(--fontSize);
-		font-family: var(--textFont);
-		font-variant-ligatures: none;
-		overflow-x: hidden;
-	}
-	body{
-		overflow-y: hidden;
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	code{
-		font-family: var(--codeFont);
-	}
-	.textLayer{
-		position: relative;
-		width: 100%;
-		z-index: 3;
-		will-change: transform;
-	}
-	.codeLayer{
-		position: relative;
-		z-index: 0;
-	}
-	.svgLayer{
-		position: absolute;
-		width: 100%;
-		height: 2995px;
-		z-index: 2;
-		pointer-events: none;
-		will-change: transform;
-	}
-	#visualLayerButtonLayer{
-		position: absolute;
-		z-index: 1;
-	}
-	#logicalLayerButtonLayer{
-		position: absolute;
-		z-index: 4;
-	}
-	#visualThemeButtonLayer{
-		position: absolute;
-		z-index: 1;
-	}
-	#logicalThemeButtonLayer{
-		position: absolute;
-		z-index: 4;
-	}
-	.svg{
-		position: absolute;
-		width: 278px;
-		height: 690px;
-		top: var(--contentOffsetY);
-		left: var(--contentOffsetX);
-	}
-	#svg{
-		position: absolute;
-		width: 100%;
-		height: calc(var(--pageHeight) - 5px); /* fix later */
-		top: var(--contentOffsetY);
-		left: var(--contentOffsetX);
-	}
-	.layerButton{
-		display: flex;
-		position: absolute;
-		top: calc(var(--contentOffsetY) + var(--leftContentOffsetY) + var(--buttonHoleOffsetY) + var(--buttonOffsetY));
-		left: calc(var(--contentOffsetX) + var(--leftContentOffsetX) + var(--buttonHoleOffsetX) + var(--buttonOffsetX));
-		width: 94px;
-		height: 44px;
-		background: var(--buttonBackground);
-		color: var(--buttonColor);
-		justify-content: center;
-		align-items: center;
-		border-radius: var(--holeCornerRadius);
-	}
-	.themeButton{
-		display: flex;
-		position: absolute;
-		top: calc(var(--contentOffsetY) + var(--leftContentOffsetY) + var(--buttonHoleOffsetY) + var(--buttonOffsetY));
-		left: calc(var(--contentOffsetX) + var(--leftContentOffsetX) + var(--buttonHoleOffsetX) + var(--buttonOffsetX) + 100px + 12px); /*! fix later */
-		width: 104px;
-		height: 44px;
-		background: var(--buttonBackground);
-		color: var(--buttonColor);
-		justify-content: center;
-		align-items: center;
-		border-radius: var(--holeCornerRadius);
-	}
-	.logicalButton{
-		opacity: 0;
-	}
-	.noSelect, .noSelect *{
-		user-select: none;
-		-webkit-user-select: none;
-		-ms-user-select: none;
-	}
-	.preTitle{
-		height: var(--preTitleHeight);
-	}
-	.title{
-		height: var(--titleHeight);
-		font-size: var(--titleFontSize);
-	}
-	.postTitle{
-		height: var(--postTitleHeight);
-	}
-	.preParagraph{
-		height: var(--preParagraphHeight);
-	}
-	.preText{
-		height: var(--preTextHeight);
-	}
-	.text{
-		height: var(--textHeight);
-		font-size: var(--textFontSize);
-	}
-	.postText{
-		height: var(--postTextHeight);
-	}
-	.preCode{
-		height: var(--preCodeHeight);
-	}
-	.code{
-		height: var(--codeHeight);
-		font-size: var(--codeFontSize);
-		transform: translate(var(--codeIndentX), var(--codeIndentY)); /*! no transform here please, fix later */
-	}
-	.postCode{
-		height: var(--postCodeHeight);
-	}
-	.rightContent{
-		position: relative;
-		top: calc(var(--contentOffsetY) + var(--rightContentOffsetY) + var(--rightContentPaddingOffsetY));
-		left: calc(var(--contentOffsetX) + var(--rightContentOffsetX) + var(--rightContentPaddingOffsetX));
-	}
-	.contentOffset{
-		transform: translate(var(--contentOffsetX), var(--contentOffsetY));
-	}
-	.leftContentOffset{
-		transform: translate(var(--leftContentOffsetX), var(--leftContentOffsetY));
-	}
-	.buttonHoleOffset{
-		transform: translate(var(--buttonHoleOffsetX), var(--buttonHoleOffsetY));
-	}
-	.buttonOffset{
-		transform: translate(var(--buttonOffsetX), var(--buttonOffsetY));
-	}
-	.rightContentOffset{
-		transform: translate(var(--rightContentOffsetX), var(--rightContentOffsetY));
-	}
-	.rightContentPaddingOffset{
-		transform: translate(var(--rightContentPaddingOffsetX), var(--rightContentPaddingOffsetY));
-	}
-	.holeOffset{
-		transform: translate(var(--holeMarginX), var(--holeMarginY));
-	}
-	.preTitleOffset{
-		transform: translateY(var(--preTitleHeight));
-	}
-	.titleOffset{
-		transform: translateY(var(--titleHeight));
-	}
-	.postTitleOffset{
-		transform: translateY(var(--postTitleHeight));
-	}
-	.preParagraphOffset{
-		transform: translateY(var(--preParagraphHeight));
-	}
-	.preTextOffset{
-		transform: translateY(var(--preTextHeight));
-	}
-	.textOffset{
-		transform: translateY(var(--textHeight));
-	}
-	.postTextOffset{
-		transform: translateY(var(--postTextHeight));
-	}
-	.preCodeOffset{
-		transform: translateY(var(--preCodeHeight));
-	}
-	.codeOffset{
-		transform: translateY(var(--codeHeight));
-	}
-	.postCodeOffset{
-		transform: translateY(var(--postCodeHeight));
-	}
-	.hole{
-		rx: var(--holeCornerRadius);
-		ry: var(--holeCornerRadius);
-		fill: black;
-	}
-	.holeStrecher{
-		width: calc(100% - var(--contentOffsetX) - var(--rightContentOffsetX) - 2 * (var(--rightContentPaddingOffsetX) + var(--holeMarginX)));
-	}
-	.holeChin{
-		rx: var(--holeCornerRadius);
-		ry: var(--holeCornerRadius);
-		fill: var(--holeChinColor);
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	.holeChinStrecher{
-		width: calc(100% - var(--contentOffsetX) - var(--rightContentOffsetX) - 2 * var(--rightContentPaddingOffsetX));
-	}
-	.holeBorder{
-		rx: var(--holeCornerRadius);
-		ry: var(--holeCornerRadius);
-		fill: var(--holeBorderColor);
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
-	.holeBorderStrecher{
-		width: calc(100% - var(--contentOffsetX) - var(--rightContentOffsetX) - 2 * var(--rightContentPaddingOffsetX));
-	}
-</style>
-<script>
-	const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-	let savedTheme = localStorage.getItem("theme");
-
-	function setTheme(theme){
-		const previousTheme = document.documentElement.getAttribute("dataTheme");
-		let currentTheme;
-		if(theme){
-			currentTheme = theme;
-		}else{
-			currentTheme = "darkTheme";
-			if(previousTheme === "darkTheme"){
-				currentTheme = "lightTheme";
-			}
-		}
-		if(currentTheme !== previousTheme){
-			localStorage.setItem("theme", currentTheme);
-			document.documentElement.setAttribute("dataTheme", currentTheme);
-		}
-		return;
-	}
-	if(savedTheme !== "lightTheme" && savedTheme !== "darkTheme"){
-		savedTheme = "lightTheme";
-		if(prefersDark){
-			savedTheme = "darkTheme";
-		}
-	}
-	setTheme(savedTheme);
-</script>
-</head>
-<body>
-<div class="noSelect" id="visualLayerButtonLayer"><div class="layerButton visualButton">Toggle Shell</div></div>
-<div class="noSelect" id="logicalLayerButtonLayer"><div class="layerButton logicalButton" id="layerButton"></div></div>
-<div class="noSelect" id="visualThemeButtonLayer"><div class="themeButton visualButton">Toggle Theme</div></div>
-<div class="noSelect" id="logicalThemeButtonLayer"><div class="themeButton logicalButton" id="themeButton"></div></div>
-<div class="rightContent textLayer preTitle"></div>
-<div class="rightContent textLayer title themeAnimatedText">Useful links</div></div>
-<div class="rightContent textLayer postTitle"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">This is a list of all GitHub projects, private or otherwise, that may be of some interest.</div></div>
-<div class="rightContent textLayer text themeAnimatedText">They are primarily desktop Linux programs for my desktop environment.</div></div>
-<div class="rightContent textLayer text themeAnimatedText">Included within are also tools I use like the compilation pipeline and my header-only C language library.</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preParagraph"></div>
-<div class="rightContent textLayer preTitle"></div>
-<div class="rightContent textLayer title themeAnimatedText">Projects</div></div>
-<div class="rightContent textLayer postTitle"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">cold</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/cold</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">compile</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/compile</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microtk</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microtk</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microbar</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microbar</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microbrightness</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microbrightness</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microcompositor</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microcompositor</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microconfiner</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microconfiner</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microdesktop</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microdesktop</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microgesture</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microgesture</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microlauncher</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microlauncher</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">micropanel</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/micropanel</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microrun</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microrun</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microscreensaver</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microscreensaver</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microsound</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microsound</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microswitcher</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microswitcher</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microtabber</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microtabber</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microtransmitter</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microtransmitter</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="rightContent textLayer preText"></div>
-<div class="rightContent textLayer text themeAnimatedText">microwm</div></div>
-<div class="rightContent textLayer postText"></div>
-<div class="rightContent textLayer preCode"></div>
-<div class="rightContent codeLayer code themeAnimatedTextBackground"><pre><code>https://github.com/SenatorSteven/microwm</code></pre></div>
-<div class="rightContent textLayer postCode"></div>
-<div class="svgLayer">
-	<svg class="svg">
-		<rect class="animatableFill" width="278" height="690" rx="12" ry="12" fill="var(--svgBackground)"/>
-	</svg>
-</div>
-<div class="svgLayer" id="svgLayer">
-	<svg preserveAspectRatio="none" id="svg">
-		<defs>
-			<g id="hole">
-				<g style="transform: translate(0px, -8px)">
-					<g class="holeOffset">
-						<rect class="hole holeStrecher" height="38"/>
-					</g>
-				</g>
-			</g>
-			<g id="holeDecoration">
-				<g style="transform: translate(0px, -8px)">
-					<rect class="holeChin holeChinStrecher" y="16" height="25"/>
-					<rect class="holeBorder holeBorderStrecher" height="40"/>
-				</g>
-			</g>
-			<mask id="holeMask">
-				<rect width="100%" height="100%" fill="white"/>
-				<g class="leftContentOffset">
-					<g class="buttonHoleOffset">
-						<g class="holeOffset">
-							<rect class="hole" width="98" height="48"/>
-						</g>
-						<g style="transform: translate(100px, 0px)">
-							<g style="transform: translate(12px, 0px)">
-								<g class="holeOffset">
-									<rect class="hole" width="108" height="48"/>
-								</g>
-							</g>
-						</g>
-					</g>
-				</g>
-				<g class="rightContentOffset">
-					<g class="rightContentPaddingOffset">
-						<g class="preTitleOffset">
-						<g class="titleOffset">
-						<g class="postTitleOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="textOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preParagraphOffset">
-						<g class="preTitleOffset">
-						<g class="titleOffset">
-						<g class="postTitleOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						<g class="preTextOffset">
-						<g class="textOffset">
-						<g class="postTextOffset">
-						<g class="preCodeOffset">
-							<use href="#hole"/>
-						<g class="codeOffset">
-						<g class="postCodeOffset">
-						</g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g>
-					</g>
-				</g>
-			</mask>
-		</defs>
-		<g mask="url(#holeMask)">
-			<path class="animatableFill" fill="var(--svgBackground)" d="M 40091 0 L 40091 2990 L 12 2990 A 12 12 0 0 1 0 2978 L 0 712 A 12 12 0 0 1 12 700 L 276 700 A 12 12 0 0 0 288 688 L 288 12 A 12 12 0 0 1 300 0 Z"/>
-			<g class="leftContentOffset">
-				<g class="buttonHoleOffset">
-					<rect class="holeChin" y="26" width="100" height="25"/>
-					<rect class="holeBorder" width="100" height="50"/>
-					<g style="transform: translate(100px, 0px)">
-						<g style="transform: translate(12px, 0px)">
-							<rect class="holeChin" y="26" width="110" height="25"/>
-							<rect class="holeBorder" width="110" height="50"/>
-						</g>
-					</g>
-				</g>
-			</g>
-			<g class="rightContentOffset">
-				<g class="rightContentPaddingOffset">
-					<g class="preTitleOffset">
-					<g class="titleOffset">
-					<g class="postTitleOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="textOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preParagraphOffset">
-					<g class="preTitleOffset">
-					<g class="titleOffset">
-					<g class="postTitleOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					<g class="preTextOffset">
-					<g class="textOffset">
-					<g class="postTextOffset">
-					<g class="preCodeOffset">
-						<use href="#holeDecoration"/>
-					<g class="codeOffset">
-					<g class="postCodeOffset">
-					</g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g>
-				</g>
-			</g>
-		</g>
-	</svg>
-</div>
-<script>
-	const slideDuration = 1000;
-	let direction = -1;
-	let animationId = null;
-	let progress = 0;
-	let lastTime;
-	let changingTheme = false;
-
-	function applyChanges(){
-		const x = progress * 875;
-		document.getElementById("svgLayer").style.transform = `translateX(${x}px)`;
-		document.querySelectorAll(".textLayer").forEach((e) => {
-			e.style.transform = `translateX(${x}px)`;
-		});
-		return;
-	}
-	function update(now){
-		progress += (now - lastTime) / slideDuration * direction;
-		if((progress <= 0 && direction === -1) || (progress >= 1 && direction === 1)){
-			progress = Math.max(0, Math.min(1, progress));
-			applyChanges();
-			animationId = null;
-			return;
-		}
-		applyChanges();
-		lastTime = now;
-		requestAnimationFrame(update);
-		return;
-	}
-	function setThemeWithStage(theme){
-		const toNeutralDuration = 1000;
-		const toNewThemeDuration = 1000;
-		const previousTheme = document.documentElement.getAttribute("dataTheme");
-		let currentTheme;
-		if(theme){
-			currentTheme = theme;
-		}else{
-			currentTheme = "darkTheme";
-			if(previousTheme === "darkTheme"){
-				currentTheme = "lightTheme";
-			}
-		}
-		if(currentTheme !== previousTheme){
-			localStorage.setItem("theme", currentTheme);
-			if(currentTheme === "darkTheme"){
-				document.documentElement.setAttribute("dataTheme", "neutralLightTheme");
-			}else{
-				document.documentElement.setAttribute("dataTheme", "neutralDarkTheme");
-			}
-			setTimeout(() => {
-				document.documentElement.setAttribute("dataTheme", currentTheme);
-				setTimeout(() => {
-					changingTheme = false;
-				}, toNewThemeDuration);
-			}, toNeutralDuration);
-		}
-		return;
-	}
-	document.getElementById("layerButton").addEventListener("click", () => {
-		document.querySelectorAll(".textLayer").forEach((e) => {
-			e.classList.toggle("noSelect");
-		});
-		direction *= -1;
-		if(!animationId){
-			lastTime = performance.now();
-			animationId = requestAnimationFrame(update);
-		}
-		return;
-	});
-	document.getElementById("themeButton").addEventListener("click", () => {
-		if(!changingTheme){
-			changingTheme = true;
-			setThemeWithStage(null);
-		}
-		return;
-	});
-</script>
-</body>
-</html>
--->
