@@ -60,7 +60,7 @@ SOFTWARE. -->
 		--codePaddingY: 8px;
 		--textFont: "Inter", Arial, sans-serif;
 		--codeFont: "Source Code Pro", monospace;
-		--fontSize: clamp(1.1rem, 1vw + 0.5rem, 1.5rem);
+		--fontSize: clamp(1.1rem, 1.25rem, 1.5rem);
 		--titleFontSize: var(--fontSize);
 		--textFontSize: var(--fontSize);
 		--codeFontSize: var(--fontSize);
@@ -77,6 +77,7 @@ SOFTWARE. -->
 		--buttonMarginY: 2px;
 		--holeWidthWithDecoration: calc(2 * (var(--buttonMarginX) + var(--holeBorderWidth)) + var(--buttonWidth));
 		--holeHeightWithDecoration: calc(2 * (var(--buttonMarginY) + var(--holeBorderHeight)) + var(--buttonHeight));
+		--buttonCornerRadius: calc(var(--holeCornerRadius) - var(--buttonMarginX));
 	}
 	[dataTheme = "lightTheme"]{
 		/* premium light color scheme */
@@ -178,7 +179,7 @@ SOFTWARE. -->
 		color: var(--buttonColor);
 		justify-content: center;
 		align-items: center;
-		border-radius: var(--holeCornerRadius);
+		border-radius: var(--buttonCornerRadius);
 	}
 	.themeButton{
 		display: flex;
@@ -191,7 +192,7 @@ SOFTWARE. -->
 		color: var(--buttonColor);
 		justify-content: center;
 		align-items: center;
-		border-radius: var(--holeCornerRadius);
+		border-radius: var(--buttonCornerRadius);
 	}
 	.logicalButton{
 		z-index: 2;
