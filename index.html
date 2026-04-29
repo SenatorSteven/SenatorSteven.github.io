@@ -34,24 +34,18 @@ SOFTWARE. -->
 <meta name="theme-color" content="#121212">
 <meta name="color-scheme" content="light dark">
 <link rel="icon" href="./favicon.png" type="image/x-icon">
-<link rel="manifest" href="https://raw.githubusercontent.com/SenatorSteven/SenatorSteven.github.io/refs/heads/master/manifest.json">
 <title>Steven's Website @ senatorsteven.github.io</title>
 <style>
 	:root{
-/*! /good */
-
 		--contentX: 10px;
 		--contentY: 10px;
 		--contentMarginBottom: 10px;
-
 		--leftContentSidebarWidth: 288px;
 		--leftContentSidebarHeight: 700px;
 		--rightContentPaddingTop: 25px;
 		--rightContentPaddingBottom: 25px;
 		--rightContentPaddingLeft: 25px;
 		--rightContentPaddingRight: 25px;
-
-/*! good */
 		--preTitleHeight: 0px;
 		--postTitleHeight: 0px;
 		--preParagraphHeight: 24px;
@@ -59,63 +53,30 @@ SOFTWARE. -->
 		--postTextHeight: 0px;
 		--preCodeHeight: 0px;
 		--postCodeHeight: 0px;
-
 		--chinHeight: 1px;
-/*! /good */
-
-		--holeMarginX: 1px;
-		--holeMarginY: 1px;
-
+		--holeBorderWidth: 1px;
+		--holeBorderHeight: 1px;
 		--codePaddingX: 8px;
 		--codePaddingY: 8px;
-
-/*! good */
 		--textFont: "Inter", Arial, sans-serif;
 		--codeFont: "Source Code Pro", monospace;
-/*! /good */
-
-		--fontSize: clamp(1.25rem, 1rem, 2rem);
-
-/*! good */
+		--fontSize: clamp(1.1rem, 1vw + 0.5rem, 1.5rem);
 		--titleFontSize: var(--fontSize);
 		--textFontSize: var(--fontSize);
 		--codeFontSize: var(--fontSize);
 		--contentCornerRadius: 12px;
 		--holeCornerRadius: 12px;
-/*! /good */
-
-
-
-		--leftContentOffsetX: 0px;
 		--leftContentOffsetY: 700px;
-		--rightContentOffsetX: 288px;
-		--rightContentOffsetY: 0px;
-
-
-
 		--buttonWidth: 106px;
 		--buttonHeight: 44px;
-
-
-
-		--layoutMargin: 10px;
-		--objectPadding: 12px;
+		--layoutMarginX: 10px;
+		--layoutMarginY: 10px;
 		--objectPaddingX: 12px;
 		--objectPaddingY: 12px;
-
-
-
 		--buttonMarginX: 2px;
 		--buttonMarginY: 2px;
-
-
-
-		--holeWidthWithDecoration: calc(2 * (var(--buttonMarginX) + var(--holeMarginX)) + var(--buttonWidth));
-		--holeHeightWithDecoration: calc(2 * (var(--buttonMarginY) + var(--holeMarginY)) + var(--buttonHeight));
-
-
-
-/*! good */
+		--holeWidthWithDecoration: calc(2 * (var(--buttonMarginX) + var(--holeBorderWidth)) + var(--buttonWidth));
+		--holeHeightWithDecoration: calc(2 * (var(--buttonMarginY) + var(--holeBorderHeight)) + var(--buttonHeight));
 	}
 	[dataTheme = "lightTheme"]{
 		/* premium light color scheme */
@@ -206,21 +167,11 @@ SOFTWARE. -->
 		-webkit-user-select: none;
 		-ms-user-select: none;
 	}
-/*! /good */
-
-
-
-
-
-
-
-
-
 	.layerButton{
 		display: flex;
 		position: absolute;
-		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeMarginY) + var(--buttonMarginY));
-		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX));
+		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX));
 		width: var(--buttonWidth);
 		height: var(--buttonHeight);
 		background: var(--buttonBackground);
@@ -232,8 +183,8 @@ SOFTWARE. -->
 	.themeButton{
 		display: flex;
 		position: absolute;
-		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeMarginY) + var(--buttonMarginY));
-		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX) + var(--holeWidthWithDecoration) + var(--objectPaddingX));
+		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--holeWidthWithDecoration) + var(--objectPaddingX));
 		width: var(--buttonWidth);
 		height: var(--buttonHeight);
 		background: var(--buttonBackground);
@@ -241,12 +192,6 @@ SOFTWARE. -->
 		justify-content: center;
 		align-items: center;
 		border-radius: var(--holeCornerRadius);
-	}
-
-
-
-	.visualButton{
-		z-index: 0;
 	}
 	.logicalButton{
 		z-index: 2;
@@ -257,8 +202,8 @@ SOFTWARE. -->
 		position: relative;
 		left: var(--contentX);
 		width: calc(100% - var(--contentX));
-		height: calc(2 * (var(--objectPaddingY) + var(--holeMarginY) + var(--buttonMarginY)) + var(--buttonHeight) + var(--chinHeight));
-		margin-bottom: var(--layoutMargin);
+		height: calc(2 * (var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY)) + var(--buttonHeight) + var(--chinHeight));
+		margin-bottom: var(--layoutMarginY);
 	}
 	.textLayer{
 		position: relative;
@@ -308,16 +253,6 @@ SOFTWARE. -->
 		height: 100%;
 		fill: white;
 	}
-
-
-
-
-
-
-
-
-
-/*! good */
 	.hole{
 		rx: var(--holeCornerRadius);
 		ry: var(--holeCornerRadius);
@@ -333,21 +268,11 @@ SOFTWARE. -->
 		ry: var(--holeCornerRadius);
 		fill: var(--holeBorderColor);
 	}
-/*! /good */
-
-
-
-
-
-
-
-
-
 	.holeStrecher{
-		x: var(--holeMarginX);
-		y: var(--holeMarginY);
-		width: calc(100% - 2 * var(--holeMarginX));
-		height: calc(100% - 2 * var(--holeMarginY) - var(--chinHeight));
+		x: var(--holeBorderWidth);
+		y: var(--holeBorderHeight);
+		width: calc(100% - 2 * var(--holeBorderWidth));
+		height: calc(100% - 2 * var(--holeBorderHeight) - var(--chinHeight));
 	}
 	.holeChinStrecher{
 		y: calc(100% - 2 * var(--holeCornerRadius));
@@ -363,47 +288,35 @@ SOFTWARE. -->
 		height: 100%;
 		fill: var(--svgBackground);
 	}
-
-
-
-
-
-
-
-
-
-/*! good */
+	#topSidebar{
+		position: absolute;
+		top: var(--contentY);
+		left: var(--contentX);
+		width: calc(var(--leftContentSidebarWidth) - var(--layoutMarginX));
+		height: calc(var(--leftContentSidebarHeight) - var(--layoutMarginY));
+		background: var(--svgBackground);
+		border-radius: var(--holeCornerRadius);
+	}
 	@media(max-width: 768px){
-/*! /good */
-
-
-
-
-
-
-
-
-
 		.layerButton{
-			top: calc(var(--contentY) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX));
-			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX));
+			top: calc(var(--contentY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX));
 		}
 		.themeButton{
-			top: calc(var(--contentY) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX));
-			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeMarginX) + var(--buttonMarginX) + var(--objectPaddingX) + var(--holeWidthWithDecoration));
+			top: calc(var(--contentY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--objectPaddingX) + var(--holeWidthWithDecoration));
 		}
-		.canDisappear{
-			visibility: hidden;
+		#topSidebar{
+			display: none;
 		}
-
-
-
-/*! good */
 		#topbar{
 			display: block;
 		}
 		#sidebar{
 			--leftContentSidebarWidth: 0px;
+		}
+		.canDisappear{
+			visibility: hidden;
 		}
 	}
 </style>
@@ -411,9 +324,13 @@ SOFTWARE. -->
 	const slideDuration = 2000;
 	const toNeutralDuration = 1000;
 	const toNewThemeDuration = 1000;
+	const darkThemeColor = "#121212";
+	const lightThemeColor = "#FFFFFF";
 </script>
 <script>
+	const themeColorSelector = document.querySelector('meta[name="theme-color"]');
 	let savedTheme = localStorage.getItem("theme");
+	let themeColor;
 
 	if(savedTheme !== "lightTheme" && savedTheme !== "darkTheme"){
 		savedTheme = "darkTheme";
@@ -421,43 +338,37 @@ SOFTWARE. -->
 			savedTheme = "lightTheme";
 		}
 	}
+	themeColor = darkThemeColor;
+	if(savedTheme === "lightTheme"){
+		themeColor = lightThemeColor;
+	}
+	themeColorSelector.setAttribute("content", themeColor);
 	document.documentElement.setAttribute("dataTheme", savedTheme);
 	localStorage.setItem("theme", savedTheme);
 </script>
 </head>
 <body class="themeAnimated">
-<div class="noSelect layerButton visualButton themeAnimated">Toggle Shell</div>
+<div class="noSelect layerButton themeAnimated">Toggle Shell</div>
 <div class="noSelect layerButton logicalButton" id="layerButton"></div>
-<div class="noSelect themeButton visualButton themeAnimated">Toggle Theme</div>
+<div class="noSelect themeButton themeAnimated">Toggle Theme</div>
 <div class="noSelect themeButton logicalButton" id="themeButton"></div>
+<div id="topSidebar" class="themeAnimated"></div>
 <div style="height: var(--contentY)"></div>
-<!-- /good -->
-
-
-
-
-
-
-
-
-
-<div id="topbar">
-	<svg style="width: 100%; height: 100%" preserveAspectRatio="none">
-		<mask id="topbarMask">
-			<rect width="calc(2 * var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-			<rect x="var(--contentCornerRadius)" width="100%" height="100%" fill="white"/>
-			<rect class="hole" x="calc(var(--objectPaddingX) + var(--holeMarginX))" y="calc(var(--objectPaddingY) + var(--holeMarginY))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
-			<rect class="hole" x="calc(2 * var(--objectPaddingX) + var(--holeMarginX) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--holeMarginY))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
-		</mask>
-		<g mask="url(#topbarMask)">
-			<rect class="themeAnimated" width="100%" height="100%" fill="var(--svgBackground)"/>
-			<rect class="holeChin themeAnimated" x="var(--objectPaddingX)" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-			<rect class="holeBorder themeAnimated" x="var(--objectPaddingX)" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
-			<rect class="holeChin themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-			<rect class="holeBorder themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
-		</g>
-	</svg>
-</div>
+<svg id="topbar">
+	<mask id="topbarMask">
+		<rect width="calc(2 * var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+		<rect x="var(--contentCornerRadius)" width="100%" height="100%" fill="white"/>
+		<rect class="hole" x="calc(var(--objectPaddingX) + var(--holeBorderWidth))" y="calc(var(--objectPaddingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+		<rect class="hole" x="calc(2 * var(--objectPaddingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+	</mask>
+	<g mask="url(#topbarMask)">
+		<rect class="themeAnimated" width="100%" height="100%" fill="var(--svgBackground)"/>
+		<rect class="holeChin themeAnimated" x="var(--objectPaddingX)" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+		<rect class="holeBorder themeAnimated" x="var(--objectPaddingX)" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
+		<rect class="holeChin themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+		<rect class="holeBorder themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
+	</g>
+</svg>
 <div style="display: flex; margin-bottom: var(--contentMarginBottom)">
 	<div style="flex: 0 0 var(--contentX)"></div>
 	<div id="sidebar" style="display: flex; min-width: 0; flex: 1 1 auto">
@@ -468,8 +379,8 @@ SOFTWARE. -->
 					<rect x="var(--leftContentSidebarWidth)" width="calc(var(--rightContentPaddingLeft) + var(--contentCornerRadius))" height="calc(var(--leftContentSidebarHeight) + var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
 					<rect y="var(--leftContentSidebarHeight)" width="calc(100% + var(--contentCornerRadius))" height="calc(100% - var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
 					<rect x="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" y="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" width="calc(var(--contentCornerRadius) + var(--leftContentSidebarWidth))" height="calc(var(--contentCornerRadius) + var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="black"/>
-					<rect class="hole canDisappear" x="calc(var(--objectPaddingX) + var(--holeMarginX))" y="calc(var(--objectPaddingY) + var(--leftContentOffsetY) + var(--holeMarginY))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
-					<rect class="hole canDisappear" x="calc(2 * var(--objectPaddingX) + var(--holeMarginX) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--leftContentOffsetY) + var(--holeMarginY))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+					<rect class="hole canDisappear" x="calc(var(--objectPaddingX) + var(--holeBorderWidth))" y="calc(var(--objectPaddingY) + var(--leftContentOffsetY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+					<rect class="hole canDisappear" x="calc(2 * var(--objectPaddingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--leftContentOffsetY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
 				</mask>
 				<g mask="url(#sidebarMask)">
 					<rect class="themeAnimated" width="calc(100% + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="var(--svgBackground)"/>
@@ -570,7 +481,7 @@ SOFTWARE. -->
 				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask16"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask16)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
 				<pre><code>https://github.com/SenatorSteven/microtransmitter</code></pre>
 			</div>
-			<div class="textLayer shellAnimated shellAnimated themeAnimated text">microwm</div>
+			<div class="textLayer shellAnimated themeAnimated text">microwm</div>
 			<div class="codeLayer themeAnimated code">
 				<svg class="svg shellAnimated" preserveAspectRatio="none"><mask id="mask17"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask17)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
 				<pre><code>https://github.com/SenatorSteven/microwm</code></pre>
@@ -580,16 +491,6 @@ SOFTWARE. -->
 	</div>
 	<div class="shellAnimated themeAnimated" style="flex: 0 0 var(--rightContentPaddingRight); background: var(--svgBackground)"></div>
 </div>
-
-
-
-
-
-
-
-
-
-<!-- good -->
 <script>
 	const shellAnimated = document.querySelectorAll(".shellAnimated");
 	const pre = document.querySelectorAll("pre");
@@ -636,8 +537,10 @@ SOFTWARE. -->
 		const d = document.documentElement;
 		const previousTheme = d.getAttribute("dataTheme");
 		let currentTheme = "darkTheme";
+		themeColor = darkThemeColor;
 		if(previousTheme === currentTheme){
 			currentTheme = "lightTheme";
+			themeColor = lightThemeColor;
 		}
 		pre.forEach((e) => {
 			e.style.overflowX = "hidden";
@@ -678,6 +581,7 @@ SOFTWARE. -->
 		if(!changingTheme){
 			changingTheme = true;
 			setThemeWithStage(null);
+			themeColorSelector.setAttribute("content", themeColor);
 		}
 		return;
 	});
