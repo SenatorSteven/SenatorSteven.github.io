@@ -24,7 +24,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE. -->
 
 <!DOCTYPE html>
-<html lang="en" dataTheme="darkTheme" class="themeAnimated">
+<html lang="en" dataTheme="darkTheme" class="##">
 <head>
 <meta charset="UTF-8">
 <meta name="robots" content="index, follow">
@@ -37,47 +37,52 @@ SOFTWARE. -->
 <title>Steven's Website @ senatorsteven.github.io</title>
 <style>
 	:root{
-		--contentX: 10px;
-		--contentY: 10px;
+		--buttonWidth: 106px;
+		--buttonHeight: 44px;
+		--buttonMarginX: 2px;
+		--buttonMarginY: 2px;
+		--sidebarWidth: 278px;
+		--sidebarHeight: 690px;
+		--contentSpacingX: 10px;
+		--contentSpacingY: 10px;
+		--contentMarginTop: 10px;
 		--contentMarginBottom: 10px;
-		--leftContentSidebarWidth: 288px;
-		--leftContentSidebarHeight: 700px;
+		--contentMarginLeft: 10px;
 		--rightContentPaddingTop: 25px;
 		--rightContentPaddingBottom: 25px;
 		--rightContentPaddingLeft: 25px;
 		--rightContentPaddingRight: 25px;
-		--preTitleHeight: 0px;
-		--postTitleHeight: 0px;
-		--preParagraphHeight: 24px;
-		--preTextHeight: 16px;
-		--postTextHeight: 0px;
-		--preCodeHeight: 0px;
-		--postCodeHeight: 0px;
-		--chinHeight: 1px;
 		--holeBorderWidth: 1px;
 		--holeBorderHeight: 1px;
+		--chinHeight: 1px;
+		--preTitleHeight: 0px;
+		--postTitleHeight: 0px;
+		--preResizableTextHeight: 16px;
+		--postResizableTextHeight: 0px;
+		--preParagraphHeight: 24px;
+		--preTextHeight: 16px;
+		--textHeight: 23px;
+		--postTextHeight: 0px;
+		--preCodeHeight: 0px;
+		--codeHeight: 43px;
+		--postCodeHeight: 0px;
 		--codePaddingX: 8px;
 		--codePaddingY: 8px;
+		--contentCornerRadius: 12px;
+		--holeCornerRadius: 12px;
 		--textFont: "Inter", Arial, sans-serif;
 		--codeFont: "Source Code Pro", monospace;
 		--fontSize: clamp(1.1rem, 1.25rem, 1.5rem);
 		--titleFontSize: var(--fontSize);
 		--textFontSize: var(--fontSize);
 		--codeFontSize: var(--fontSize);
-		--contentCornerRadius: 12px;
-		--holeCornerRadius: 12px;
-		--leftContentOffsetY: 700px;
-		--buttonWidth: 106px;
-		--buttonHeight: 44px;
-		--layoutMarginX: 10px;
-		--layoutMarginY: 10px;
-		--objectPaddingX: 12px;
-		--objectPaddingY: 12px;
-		--buttonMarginX: 2px;
-		--buttonMarginY: 2px;
+		--decorationHeight: var(--codeHeight);
+		--sidebarHoleWidth: calc(var(--sidebarWidth) + abs(sign(var(--sidebarWidth))) * var(--contentSpacingX));
+		--sidebarHoleHeight: calc(var(--sidebarHeight) + abs(sign(var(--sidebarHeight))) * var(--contentSpacingY));
 		--holeWidthWithDecoration: calc(2 * (var(--buttonMarginX) + var(--holeBorderWidth)) + var(--buttonWidth));
 		--holeHeightWithDecoration: calc(2 * (var(--buttonMarginY) + var(--holeBorderHeight)) + var(--buttonHeight));
-		--buttonCornerRadius: calc(var(--holeCornerRadius) - var(--buttonMarginX));
+		--buttonCornerRadiusX: calc(var(--holeCornerRadius) - var(--buttonMarginX));
+		--buttonCornerRadiusY: calc(var(--holeCornerRadius) - var(--buttonMarginY));
 	}
 	[dataTheme = "lightTheme"]{
 		/* premium light color scheme */
@@ -120,12 +125,19 @@ SOFTWARE. -->
 		--holeBorderColor: var(--background);
 	}
 	*{
-		box-sizing: border-box;
+		position: relative;
 		top: 0px;
 		left: 0px;
 		border: 0px;
 		margin: 0px;
 		padding: 0px;
+		box-sizing: content-box;
+	}
+	*::selection{
+		background: Highlight;
+	}
+	*::selection:window-inactive{
+		background: InactiveHighlight;
 	}
 	html{
 		background: var(--background);
@@ -140,6 +152,9 @@ SOFTWARE. -->
 		width: 100%;
 		height: 100%;
 	}
+	pre::-webkit-scrollbar{
+		display: none;
+	}
 	pre{
 		padding-top: var(--codePaddingY);
 		padding-bottom: var(--codePaddingY);
@@ -147,9 +162,6 @@ SOFTWARE. -->
 		padding-right: var(--codePaddingX);
 		overflow-y: hidden;
 		scrollbar-width: none;
-	}
-	pre::-webkit-scrollbar{
-		display: none;
 	}
 	pre.fit{
 		width: -moz-fit-content;
@@ -160,99 +172,86 @@ SOFTWARE. -->
 	code{
 		font-family: var(--codeFont);
 	}
-	.themeAnimated{
-		transition: background 1s ease, fill 1s ease, color 1s ease;
-	}
 	.noSelect, .noSelect *{
 		user-select: none;
-		-webkit-user-select: none;
+		-o-user-select: none;
 		-ms-user-select: none;
+		-moz-user-select: none;
+		-khtml-user-select: none;
+		-webkit-user-select: none;
 	}
 	.layerButton{
 		display: flex;
 		position: absolute;
-		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
-		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX));
+		top: calc(var(--sidebarHeight) + var(--contentMarginTop) + 2 * var(--contentSpacingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+		left: calc(var(--contentMarginLeft) + var(--contentSpacingX) + var(--holeBorderWidth) + var(--buttonMarginX));
 		width: var(--buttonWidth);
 		height: var(--buttonHeight);
 		background: var(--buttonBackground);
 		color: var(--buttonColor);
 		justify-content: center;
 		align-items: center;
-		border-radius: var(--buttonCornerRadius);
+		border-radius: var(--buttonCornerRadiusX) var(--buttonCornerRadiusY);
 	}
 	.themeButton{
 		display: flex;
 		position: absolute;
-		top: calc(var(--contentY) + var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
-		left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--holeWidthWithDecoration) + var(--objectPaddingX));
+		top: calc(var(--sidebarHeight) + var(--contentMarginTop) + 2 * var(--contentSpacingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+		left: calc(var(--contentMarginLeft) + var(--contentSpacingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--contentSpacingX) + var(--holeWidthWithDecoration));
 		width: var(--buttonWidth);
 		height: var(--buttonHeight);
 		background: var(--buttonBackground);
 		color: var(--buttonColor);
 		justify-content: center;
 		align-items: center;
-		border-radius: var(--buttonCornerRadius);
+		border-radius: var(--buttonCornerRadiusX) var(--buttonCornerRadiusY);
 	}
 	.logicalButton{
-		z-index: 2;
+		z-index: 1;
 		opacity: 0;
 	}
-	#topbar{
+	#topBar{
 		display: none;
-		position: relative;
-		left: var(--contentX);
-		width: calc(100% - var(--contentX));
-		height: calc(2 * (var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY)) + var(--buttonHeight) + var(--chinHeight));
-		margin-bottom: var(--layoutMarginY);
+		top: var(--contentMarginTop);
+		left: var(--contentMarginLeft);
+		width: calc(100% - var(--contentMarginLeft));
+		height: calc(2 * (var(--contentSpacingY) + var(--holeBorderHeight) + var(--buttonMarginY)) + var(--buttonHeight) + var(--chinHeight));
+		margin-bottom: var(--contentSpacingY);
 	}
-	.textLayer{
-		position: relative;
-		background: var(--svgBackground);
-	}
-	.textLayer::before{
+	#sideBar{
 		position: absolute;
-		top: -1px;
-		left: 0;
-		right: 0;
-		height: 2px;
+		top: var(--contentMarginTop);
+		left: var(--contentMarginLeft);
+		width: var(--sidebarWidth);
+		height: var(--sidebarHeight);
+		border-radius: var(--contentCornerRadius);
 		background: var(--svgBackground);
-		content: "";
-		transition: background 1s ease, fill 1s ease, color 1s ease;
 	}
-	.codeLayer{
-		position: relative;
+	#content{
+		position: absolute;
+		top: var(--contentMarginTop);
+		left: var(--contentMarginLeft);
+		width: calc(100% - var(--contentMarginLeft));
 	}
-	.title{
-		padding-top: var(--preTitleHeight);
-		padding-bottom: var(--postTitleHeight);
-		font-size: var(--titleFontSize);
-	}
-	.preParagraph{
-		height: var(--preParagraphHeight);
-	}
-	.text{
-		padding-top: var(--preTextHeight);
-		padding-bottom: var(--postTextHeight);
-		font-size: var(--textFontSize);
-		text-align: justify;
-	}
-	.code{
-		padding-top: var(--preCodeHeight);
-		padding-bottom: var(--postCodeHeight);
-		font-size: var(--codeFontSize);
-	}
-	.svg{
+	.textLayer0{
 		position: absolute;
 		width: 100%;
 		height: 100%;
-		z-index: 1;
-		pointer-events: none;
+		background: var(--svgBackground);
+		z-index: -1;
 	}
-	.whiteMask{
-		width: 100%;
-		height: 100%;
-		fill: white;
+	.textLayer2{
+		left: calc(0px - var(--rightContentPaddingLeft));
+		width: calc(100% + var(--rightContentPaddingLeft));
+		padding-left: var(--rightContentPaddingRight);
+		color: transparent;
+		background: var(--svgBackground);
+	}
+	.invisible{
+		visibility: hidden;
+	}
+	._\#\#{
+		transition: background 1s ease, color 1s ease, fill 1s ease;
 	}
 	.hole{
 		rx: var(--holeCornerRadius);
@@ -269,55 +268,52 @@ SOFTWARE. -->
 		ry: var(--holeCornerRadius);
 		fill: var(--holeBorderColor);
 	}
-	.holeStrecher{
-		x: var(--holeBorderWidth);
-		y: var(--holeBorderHeight);
-		width: calc(100% - 2 * var(--holeBorderWidth));
-		height: calc(100% - 2 * var(--holeBorderHeight) - var(--chinHeight));
+	.codeOffset{
+		transform: translateY(calc(var(--preTextHeight) + var(--textHeight) + var(--postTextHeight) + var(--preCodeHeight)));
 	}
-	.holeChinStrecher{
-		y: calc(100% - 2 * var(--holeCornerRadius));
-		width: 100%;
-		height: calc(2 * var(--holeCornerRadius));
+	.textCodeOffset{
+		transform: translateY(calc(var(--preTextHeight) + var(--textHeight) + var(--postTextHeight) + var(--preCodeHeight) + var(--codeHeight) + var(--postCodeHeight)));
 	}
-	.holeBorderStrecher{
-		width: 100%;
-		height: calc(100% - var(--chinHeight));
+	.title{
+		padding-top: var(--preTitleHeight);
+		padding-bottom: var(--postTitleHeight);
+		font-size: var(--titleFontSize);
 	}
-	.svgRectangleBackground{
-		width: 100%;
-		height: 100%;
-		fill: var(--svgBackground);
+	.resizableText{
+		padding-top: var(--preResizableTextHeight);
+		padding-bottom: var(--postResizableTextHeight);
+		font-size: var(--textFontSize);
+		text-align: justify;
 	}
-	#topSidebar{
-		position: absolute;
-		top: var(--contentY);
-		left: var(--contentX);
-		width: calc(var(--leftContentSidebarWidth) - var(--layoutMarginX));
-		height: calc(var(--leftContentSidebarHeight) - var(--layoutMarginY));
-		background: var(--svgBackground);
-		border-radius: var(--holeCornerRadius);
+	.preParagraph{
+		height: var(--preParagraphHeight);
+	}
+	.text{
+		height: var(--textHeight);
+		padding-top: var(--preTextHeight);
+		padding-bottom: var(--postTextHeight);
+		font-size: var(--textFontSize);
+	}
+	.code{
+		height: var(--codeHeight);
+		padding-top: var(--preCodeHeight);
+		padding-bottom: var(--postCodeHeight);
+		font-size: var(--codeFontSize);
 	}
 	@media(max-width: 768px){
+		:root{
+			--sidebarWidth: 0px;
+		}
 		.layerButton{
-			top: calc(var(--contentY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
-			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX));
+			top: calc(var(--contentMarginTop) + var(--contentSpacingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+			left: calc(var(--contentMarginLeft) + var(--contentSpacingX) + var(--holeBorderWidth) + var(--buttonMarginX));
 		}
 		.themeButton{
-			top: calc(var(--contentY) + var(--objectPaddingY) + var(--holeBorderHeight) + var(--buttonMarginY));
-			left: calc(var(--contentX) + var(--objectPaddingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--objectPaddingX) + var(--holeWidthWithDecoration));
+			top: calc(var(--contentMarginTop) + var(--contentSpacingY) + var(--holeBorderHeight) + var(--buttonMarginY));
+			left: calc(var(--contentMarginLeft) + var(--contentSpacingX) + var(--holeBorderWidth) + var(--buttonMarginX) + var(--contentSpacingX) + var(--holeWidthWithDecoration));
 		}
-		#topSidebar{
-			display: none;
-		}
-		#topbar{
+		#topBar{
 			display: block;
-		}
-		#sidebar{
-			--leftContentSidebarWidth: 0px;
-		}
-		.canDisappear{
-			visibility: hidden;
 		}
 	}
 </style>
@@ -348,159 +344,214 @@ SOFTWARE. -->
 	localStorage.setItem("theme", savedTheme);
 </script>
 </head>
-<body class="themeAnimated">
-<div class="noSelect layerButton themeAnimated">Toggle Shell</div>
+<body>
+<div class="noSelect layerButton ##">Toggle Shell</div>
 <div class="noSelect layerButton logicalButton" id="layerButton"></div>
-<div class="noSelect themeButton themeAnimated">Toggle Theme</div>
+<div class="noSelect themeButton ##">Toggle Theme</div>
 <div class="noSelect themeButton logicalButton" id="themeButton"></div>
-<div id="topSidebar" class="themeAnimated"></div>
-<div style="height: var(--contentY)"></div>
-<svg id="topbar">
-	<mask id="topbarMask">
+<svg id="topBar">
+	<mask id="topBarMask">
+		<rect x="var(--contentCornerRadius)" width="calc(100% - var(--contentCornerRadius)" height="100%" fill="white"/>
 		<rect width="calc(2 * var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-		<rect x="var(--contentCornerRadius)" width="100%" height="100%" fill="white"/>
-		<rect class="hole" x="calc(var(--objectPaddingX) + var(--holeBorderWidth))" y="calc(var(--objectPaddingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
-		<rect class="hole" x="calc(2 * var(--objectPaddingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+		<rect class="hole" x="calc(var(--contentSpacingX) + var(--holeBorderWidth))" y="calc(var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(var(--buttonWidth) + 2 * var(--buttonMarginX))" height="calc(var(--buttonHeight) + 2 * var(--buttonMarginY))"/>
+		<rect class="hole" x="calc(2 * var(--contentSpacingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(var(--buttonWidth) + 2 * var(--buttonMarginX))" height="calc(var(--buttonHeight) + 2 * var(--buttonMarginY))"/>
 	</mask>
-	<g mask="url(#topbarMask)">
-		<rect class="themeAnimated" width="100%" height="100%" fill="var(--svgBackground)"/>
-		<rect class="holeChin themeAnimated" x="var(--objectPaddingX)" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-		<rect class="holeBorder themeAnimated" x="var(--objectPaddingX)" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
-		<rect class="holeChin themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-		<rect class="holeBorder themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
+	<g mask="url(#topBarMask)">
+		<rect class="##" width="100%" height="100%" fill="var(--svgBackground)"/>
+		<rect class="## holeChin" x="var(--contentSpacingX)" y="calc(var(--contentSpacingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+		<rect class="## holeChin" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="calc(var(--contentSpacingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+		<rect class="## holeBorder" x="var(--contentSpacingX)" y="var(--contentSpacingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
+		<rect class="## holeBorder" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="var(--contentSpacingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
 	</g>
 </svg>
-<div style="display: flex; margin-bottom: var(--contentMarginBottom)">
-	<div style="flex: 0 0 var(--contentX)"></div>
-	<div id="sidebar" style="display: flex; min-width: 0; flex: 1 1 auto">
-		<div class="->" style="flex: 0 0 calc(var(--leftContentSidebarWidth) + var(--rightContentPaddingLeft)); z-index: 1">
-			<svg style="display: block; width: 100%; height: 100%" preserveAspectRatio="none">
-				<mask id="sidebarMask">
-					<rect width="var(--leftContentSidebarWidth)" height="var(--leftContentSidebarHeight)" fill="white"/>
-					<rect x="var(--leftContentSidebarWidth)" width="calc(var(--rightContentPaddingLeft) + var(--contentCornerRadius))" height="calc(var(--leftContentSidebarHeight) + var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-					<rect y="var(--leftContentSidebarHeight)" width="calc(100% + var(--contentCornerRadius))" height="calc(100% - var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
-					<rect x="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" y="calc(var(--contentCornerRadius) - 2 * var(--contentCornerRadius))" width="calc(var(--contentCornerRadius) + var(--leftContentSidebarWidth))" height="calc(var(--contentCornerRadius) + var(--leftContentSidebarHeight))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="black"/>
-					<rect class="hole canDisappear" x="calc(var(--objectPaddingX) + var(--holeBorderWidth))" y="calc(var(--objectPaddingY) + var(--leftContentOffsetY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
-					<rect class="hole canDisappear" x="calc(2 * var(--objectPaddingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--objectPaddingX) + var(--leftContentOffsetY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+<div>
+	<div class="##" id="sideBar"></div>
+	<div id="content">
+		<div class="->" style="position: absolute; top: var(--rightContentPaddingTop); width: calc(100% - var(--sidebarHoleWidth) - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight)); z-index: 3; pointer-events: none">
+			<div class="##" style="left: calc(var(--sidebarHoleWidth) + var(--rightContentPaddingRight) - var(--rightContentPaddingLeft)); width: 100%; padding-left: var(--rightContentPaddingLeft); padding-right: var(--rightContentPaddingRight); background: var(--svgBackground); z-index: 1; pointer-events: auto">
+				<div class="title textLayer1">Useful links</div>
+				<div class="resizableText textLayer1">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
+				<div class="preParagraph textLayer1"></div>
+				<div class="title textLayer1">Projects</div>
+			</div>
+			<div style="left: calc(var(--sidebarHoleWidth) + var(--rightContentPaddingRight)); z-index: 0; pointer-events: none">
+				<svg style="position: absolute; top: calc(0px - var(--rightContentPaddingTop)); left: calc(0px - var(--rightContentPaddingLeft)); width: calc(100% + var(--rightContentPaddingLeft) + var(--rightContentPaddingRight)); height: calc(100% + var(--rightContentPaddingTop)); pointer-events: none" preserveAspectRatio="none">
+					<defs>
+						<g id="hole">
+							<rect y="var(--rightContentPaddingTop)" width="100%" height="var(--decorationHeight)" fill="white"/>
+							<rect class="hole" x="calc(var(--rightContentPaddingLeft) + var(--holeBorderWidth))" y="calc(var(--rightContentPaddingTop) + var(--holeBorderHeight))" width="calc(100% - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight) - 2 * var(--holeBorderWidth))" height="calc(var(--decorationHeight) - 2 * var(--holeBorderHeight) - var(--chinHeight))"/>
+						</g>
+						<g id="holeDecoration">
+							<rect class="## holeChin" x="var(--rightContentPaddingLeft)" y="calc(var(--rightContentPaddingTop) + var(--decorationHeight) - 2 * var(--holeCornerRadius))" width="calc(100% - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight))" height="calc(2 * var(--holeCornerRadius))"/>
+							<rect class="## holeBorder" x="var(--rightContentPaddingLeft)" y="var(--rightContentPaddingTop)" width="calc(100% - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight))" height="calc(var(--decorationHeight) - var(--chinHeight))"/>
+						</g>
+						<mask id="mask0">
+							<g class="codeOffset">    <use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							<g class="textCodeOffset"><use href="#hole"/>
+							</g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g>
+						</mask>
+					</defs>
+					<g mask="url(#mask0)">
+						<rect class="##" width="100%" height="100%" fill="var(--svgBackground)"/>
+						<g class="codeOffset">    <use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						<g class="textCodeOffset"><use href="#holeDecoration"/>
+						</g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g></g>
+					</g>
+				</svg>
+				<div class="## text noSelect">cold<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/cold</code></pre></div>
+				<div class="## text noSelect">compile<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/compile</code></pre></div>
+				<div class="## text noSelect">dreiton<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/dreiton</code></pre></div>
+				<div class="## text noSelect">microtk<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microtk</code></pre></div>
+				<div class="## text noSelect">microbar<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microbar</code></pre></div>
+				<div class="## text noSelect">microbrightness<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microbrightness</code></pre></div>
+				<div class="## text noSelect">microcompositor<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microcompositor</code></pre></div>
+				<div class="## text noSelect">microconfiner<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microconfiner</code></pre></div>
+				<div class="## text noSelect">microdesktop<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microdesktop</code></pre></div>
+				<div class="## text noSelect">microgesture<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microgesture</code></pre></div>
+				<div class="## text noSelect">microlauncher<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microlauncher</code></pre></div>
+				<div class="## text noSelect">micropanel<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/micropanel</code></pre></div>
+				<div class="## text noSelect">microrun<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microrun</code></pre></div>
+				<div class="## text noSelect">microscreensaver<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microscreensaver</code></pre></div>
+				<div class="## text noSelect">microsound<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microsound</code></pre></div>
+				<div class="## text noSelect">microswitcher<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microswitcher</code></pre></div>
+				<div class="## text noSelect">microtabber<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microtabber</code></pre></div>
+				<div class="## text noSelect">microtransmitter<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microtransmitter</code></pre></div>
+				<div class="## text noSelect">microwm<div class="## textLayer0 invisible"></div></div>
+				<div class="code invisible"><pre><code>https://github.com/SenatorSteven/microwm</code></pre></div>
+			</div>
+			<svg style="position: absolute; top: calc(0px - var(--rightContentPaddingTop)); width: calc(100% + var(--sidebarHoleWidth) + var(--rightContentPaddingLeft) + var(--rightContentPaddingRight)); height: calc(100% + var(--rightContentPaddingTop) + var(--rightContentPaddingBottom)); z-index: 1; pointer-events: none" preserveAspectRatio="none">
+				<mask id="mask1">
+					<rect width="100%" height="100%" fill="white"/>
+					<rect width="var(--sidebarHoleWidth)" height="var(--sidebarHoleHeight)" fill="black"/>
+					<rect x="var(--sidebarHoleWidth)" width="var(--contentCornerRadius)" height="var(--contentCornerRadius)" fill="black"/>
+					<rect x="calc(0px - (1 - abs(sign(var(--sidebarHoleWidth)))) * var(--contentCornerRadius))" y="calc(var(--sidebarHoleHeight))" width="var(--contentCornerRadius)" height="var(--contentCornerRadius)" fill="black"/>
+					<rect y="calc(100% - var(--contentCornerRadius))" width="var(--contentCornerRadius)" height="var(--contentCornerRadius)" fill="black"/>
+					<rect x="calc(var(--sidebarHoleWidth) - var(--contentCornerRadius))" y="calc(var(--sidebarHoleHeight) - var(--contentCornerRadius))" width="var(--contentCornerRadius)" height="var(--contentCornerRadius)" fill="white"/>
+					<rect x="var(--sidebarHoleWidth)" width="calc(2 * var(--contentCornerRadius))" height="calc(2 * var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+					<rect y="calc(var(--sidebarHoleHeight))" width="calc(2 * var(--contentCornerRadius))" height="calc(2 * var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+					<rect y="calc(100% - 2 * var(--contentCornerRadius))" width="calc(2 * var(--contentCornerRadius))" height="calc(2 * var(--contentCornerRadius))" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="white"/>
+					<rect class="hole" x="calc(var(--sidebarHoleWidth) - 2 * var(--contentCornerRadius))" y="calc(var(--sidebarHoleHeight) - 2 * var(--contentCornerRadius))" width="calc(2 * var(--contentCornerRadius))" height="calc(2 * var(--contentCornerRadius))"/>
+					<rect x="calc(var(--sidebarHoleWidth) + var(--rightContentPaddingLeft))" y="var(--rightContentPaddingTop)" width="calc(100% - var(--sidebarHoleWidth) - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight))" height="calc(100% - var(--rightContentPaddingTop) - var(--rightContentPaddingBottom))" fill="black"/>
+					<rect class="hole" x="calc(var(--contentSpacingX) + var(--holeBorderWidth))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
+					<rect class="hole" x="calc(2 * var(--contentSpacingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
 				</mask>
-				<g mask="url(#sidebarMask)">
-					<rect class="themeAnimated" width="calc(100% + var(--contentCornerRadius))" height="100%" rx="var(--contentCornerRadius)" ry="var(--contentCornerRadius)" fill="var(--svgBackground)"/>
-					<rect class="holeChin canDisappear themeAnimated" x="var(--objectPaddingX)" y="calc(var(--leftContentOffsetY) + calc(var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-					<rect class="holeBorder canDisappear themeAnimated" x="var(--objectPaddingX)" y="calc(var(--leftContentOffsetY) + var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)" fill="var(--holeBorderColor)"/>
-					<rect class="holeChin canDisappear themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="calc(var(--leftContentOffsetY) + var(--objectPaddingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
-					<rect class="holeBorder canDisappear themeAnimated" x="calc(2 * var(--objectPaddingX) + var(--holeWidthWithDecoration))" y="calc(var(--leftContentOffsetY) + var(--objectPaddingY)" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)" fill="var(--holeBorderColor)"/>
+				<g mask="url(#mask1)">
+					<rect class="##" width="100%" height="100%" fill="var(--svgBackground)"/>
+					<rect class="## holeChin" x="var(--contentSpacingX)" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+					<rect class="## holeBorder" x="var(--contentSpacingX)" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY))" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
+					<rect class="## holeChin" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
+					<rect class="## holeBorder" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY))" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
 				</g>
 			</svg>
 		</div>
-		<div style="min-width: 0; flex: 1 1 auto"><div class="-> themeAnimated" style="height: var(--rightContentPaddingTop); background: var(--svgBackground)"></div>
-			<div class="textLayer -> themeAnimated title">Useful links</div>
-			<div class="textLayer -> themeAnimated text">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
-			<div class="textLayer -> themeAnimated preParagraph"></div>
-			<div class="textLayer -> themeAnimated title">Projects</div>
-			<div class="textLayer -> themeAnimated text">cold</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask00"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask00)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/cold</code></pre>
+		<div style="top: var(--rightContentPaddingTop); left: calc(var(--sidebarHoleWidth) + var(--rightContentPaddingRight)); width: calc(100% - var(--sidebarHoleWidth) - var(--rightContentPaddingLeft) - var(--rightContentPaddingRight))">
+			<div style="left: calc(0px - var(--rightContentPaddingLeft)); width: 100%; padding-left: var(--rightContentPaddingLeft); padding-right: var(--rightContentPaddingRight)">
+				<div class="title invisible">Useful links</div>
+				<div class="resizableText invisible">This is a list of all GitHub projects, private or otherwise, that may be of some interest. They are primarily desktop Linux programs for my desktop environment. Included within are also tools I use, like the compilation pipeline and my header-only C language library.</div>
+				<div class="preParagraph invisible"></div>
+				<div class="title invisible">Projects</div>
 			</div>
-			<div class="textLayer -> themeAnimated text">compile</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask01"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask01)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/compile</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">dreiton</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask02"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask02)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/dreiton</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microtk</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask03"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask03)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microtk</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microbar</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask04"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask04)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microbar</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microbrightness</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask05"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask05)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microbrightness</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microcompositor</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask06"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask06)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microcompositor</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microconfiner</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask07"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask07)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microconfiner</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microdesktop</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask08"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask08)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microdesktop</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microgesture</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask09"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask09)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microgesture</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microlauncher</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask10"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask10)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microlauncher</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">micropanel</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask11"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask11)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/micropanel</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microrun</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask12"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask12)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microrun</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microscreensaver</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask13"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask13)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microscreensaver</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microsound</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask14"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask14)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microsound</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microswitcher</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask15"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask15)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microswitcher</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microtabber</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask16"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask16)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microtabber</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microtransmitter</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask17"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask17)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microtransmitter</code></pre>
-			</div>
-			<div class="textLayer -> themeAnimated text">microwm</div>
-			<div class="codeLayer themeAnimated code">
-				<svg class="svg ->" preserveAspectRatio="none"><mask id="mask18"><rect class="whiteMask"/><rect class="hole holeStrecher"/></mask><g mask="url(#mask18)"><rect class="svgRectangleBackground themeAnimated"/><rect class="holeChin holeChinStrecher themeAnimated"/><rect class="holeBorder holeBorderStrecher themeAnimated"/></g></svg>
-				<pre><code>https://github.com/SenatorSteven/microwm</code></pre>
-			</div>
-			<div class="-> themeAnimated" style="height: var(--rightContentPaddingBottom); background: var(--svgBackground)"></div>
+			<div class="## text textLayer2">cold</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/cold</code></pre></div>
+			<div class="## text textLayer2">compile</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/compile</code></pre></div>
+			<div class="## text textLayer2">dreiton</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/dreiton</code></pre></div>
+			<div class="## text textLayer2">microtk</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microtk</code></pre></div>
+			<div class="## text textLayer2">microbar</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microbar</code></pre></div>
+			<div class="## text textLayer2">microbrightness</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microbrightness</code></pre></div>
+			<div class="## text textLayer2">microcompositor</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microcompositor</code></pre></div>
+			<div class="## text textLayer2">microconfiner</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microconfiner</code></pre></div>
+			<div class="## text textLayer2">microdesktop</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microdesktop</code></pre></div>
+			<div class="## text textLayer2">microgesture</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microgesture</code></pre></div>
+			<div class="## text textLayer2">microlauncher</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microlauncher</code></pre></div>
+			<div class="## text textLayer2">micropanel</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/micropanel</code></pre></div>
+			<div class="## text textLayer2">microrun</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microrun</code></pre></div>
+			<div class="## text textLayer2">microscreensaver</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microscreensaver</code></pre></div>
+			<div class="## text textLayer2">microsound</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microsound</code></pre></div>
+			<div class="## text textLayer2">microswitcher</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microswitcher</code></pre></div>
+			<div class="## text textLayer2">microtabber</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microtabber</code></pre></div>
+			<div class="## text textLayer2">microtransmitter</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microtransmitter</code></pre></div>
+			<div class="## text textLayer2">microwm</div>
+			<div class="code"><pre><code>https://github.com/SenatorSteven/microwm</code></pre></div>
+			<div style="height: calc(var(--rightContentPaddingBottom) + var(--contentMarginBottom))"></div>
 		</div>
 	</div>
-	<div class="-> themeAnimated" style="flex: 0 0 var(--rightContentPaddingRight); background: var(--svgBackground)"></div>
 </div>
 <script>
 	const shellAnimated = document.querySelectorAll(".\\-\\>");
 	const pre = document.querySelectorAll("pre");
-	const textLayer = document.querySelectorAll(".textLayer");
+	const textLayer0 = document.querySelectorAll(".textLayer0");
+	const textLayer1 = document.querySelectorAll(".textLayer1");
+	const textLayer2 = document.querySelectorAll(".textLayer2");
+	const themeAnimated = document.querySelectorAll(".\\#\\#");
 	const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 	let direction = -1;
 	let animationId = null;
@@ -532,6 +583,15 @@ SOFTWARE. -->
 				pre.forEach((e) => {
 					e.classList.toggle("fit");
 				});
+				textLayer0.forEach((e) => {
+					e.classList.toggle("invisible");
+				});
+				textLayer1.forEach((e) => {
+					e.classList.toggle("noSelect");
+				});
+				textLayer2.forEach((e) => {
+					e.classList.toggle("invisible");
+				});
 			}
 			return;
 		}
@@ -551,6 +611,9 @@ SOFTWARE. -->
 		pre.forEach((e) => {
 			e.style.overflowX = "hidden";
 		});
+		themeAnimated.forEach((e) => {
+			e.classList.toggle("_##");
+		});
 		localStorage.setItem("theme", currentTheme);
 		if(currentTheme === "darkTheme"){
 			d.setAttribute("dataTheme", "neutralLightTheme");
@@ -563,18 +626,27 @@ SOFTWARE. -->
 		pre.forEach((e) => {
 			e.style.overflowX = "";
 		});
+		themeAnimated.forEach((e) => {
+			e.classList.toggle("_##");
+		});
 		changingTheme = false;
 		return;
 	}
 	document.getElementById("layerButton").addEventListener("click", () => {
-		textLayer.forEach((e) => {
-			e.classList.toggle("noSelect");
-		});
 		direction *= -1;
 		if(!animationId){
 			if(direction === 1){
 				pre.forEach((e) => {
 					e.classList.toggle("fit");
+				});
+				textLayer0.forEach((e) => {
+					e.classList.toggle("invisible");
+				});
+				textLayer1.forEach((e) => {
+					e.classList.toggle("noSelect");
+				});
+				textLayer2.forEach((e) => {
+					e.classList.toggle("invisible");
 				});
 			}
 			interrupted = false;
