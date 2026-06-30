@@ -280,7 +280,7 @@ SOFTWARE. -->
 		fill: var(--holeBorderColor);
 	}
 	.contentMaskOffset{
-		transform: translate(var(--sidebarHoleWidth), calc(100% - 11px - 19 * var(--textCodeOffset) - 11 * var(--usedRealCodeHeight))); /*! what is that 11px initial offset? */
+		transform: translate(var(--sidebarHoleWidth), calc(100% - 11px - 19 * var(--textCodeOffset) - (2 + 6) * var(--usedRealCodeHeight))); /*! what is that 11px initial offset? */
 	}
 	.noSelect, .noSelect *{
 		user-select: none;
@@ -419,12 +419,7 @@ SOFTWARE. -->
 	<div class="preParagraph"></div>
 	<div class="## -> title">Projects</div>
 	<div class="## -> text">cold</div>
-	<div class="## code"><pre><code><!--
--->https://github.com/SenatorSteven/cold
-https://github.com/SenatorSteven/cold
-https://github.com/SenatorSteven/cold
-https://github.com/SenatorSteven/cold<!--
---></code></pre></div>
+	<div class="## code"><pre><code>https://github.com/SenatorSteven/cold</code></pre></div>
 	<div class="## -> text">compile</div>
 	<div class="## code"><pre><code>https://github.com/SenatorSteven/compile</code></pre></div>
 	<div class="## -> text">dreiton</div>
@@ -491,7 +486,7 @@ int main(void){
 			<rect class="hole" x="calc(var(--contentSpacingX) + var(--holeBorderWidth))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
 			<rect class="hole" x="calc(2 * var(--contentSpacingX) + var(--holeBorderWidth) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeBorderHeight))" width="calc(2 * var(--buttonMarginX) + var(--buttonWidth))" height="calc(2 * var(--buttonMarginY) + var(--buttonHeight))"/>
 			<g class="contentMaskOffset">
-				<g style="--n: 4"><rect class="_hole"/><g class="_ghole">
+				<g style="--n: 1"><rect class="_hole"/><g class="_ghole">
 				<g style="--n: 1"><rect class="_hole"/><g class="_ghole">
 				<g style="--n: 1"><rect class="_hole"/><g class="_ghole">
 				<g style="--n: 1"><rect class="_hole"/><g class="_ghole">
@@ -522,7 +517,7 @@ int main(void){
 			<rect class="## holeChin" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY) + var(--holeHeightWithDecoration) - 2 * var(--holeCornerRadius) + var(--chinHeight))" width="var(--holeWidthWithDecoration)" height="calc(2 * var(--holeCornerRadius))"/>
 			<rect class="## holeBorder" x="calc(2 * var(--contentSpacingX) + var(--holeWidthWithDecoration))" y="calc(var(--sidebarHoleHeight) + var(--contentSpacingY))" width="var(--holeWidthWithDecoration)" height="var(--holeHeightWithDecoration)"/>
 			<g class="contentMaskOffset">
-				<g style="--n: 4"><use href="#holeDecoration"/><g class="holeOffset">
+				<g style="--n: 1"><use href="#holeDecoration"/><g class="holeOffset">
 				<g style="--n: 1"><use href="#holeDecoration"/><g class="holeOffset">
 				<g style="--n: 1"><use href="#holeDecoration"/><g class="holeOffset">
 				<g style="--n: 1"><use href="#holeDecoration"/><g class="holeOffset">
